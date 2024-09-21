@@ -45,6 +45,7 @@ namespace UndertaleModTool
     public partial class UndertaleCodeEditor : DataUserControl
     {
         private static MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+        private const double MinEditorHeight = 100;
 
         public UndertaleCode CurrentDisassembled = null;
         public UndertaleCode CurrentDecompiled = null;
@@ -85,7 +86,6 @@ namespace UndertaleModTool
         public UndertaleCodeEditor()
         {
             InitializeComponent();
-
             // Decompiled editor styling and functionality
             DecompiledSearchPanel = SearchPanel.Install(DecompiledEditor.TextArea);
             DecompiledSearchPanel.LostFocus += SearchPanel_LostFocus;
@@ -224,6 +224,11 @@ namespace UndertaleModTool
 
         private void UndertaleCodeEditor_Loaded(object sender, RoutedEventArgs e)
         {
+            // Calculates the min height of the Editor, so it won't resize any smaller.
+            // At min height all fields and at least a few lines of code should be displayed.
+            // Must be done at runtime since the size of fields is unknown until they are rendered.
+            this.MinHeight = FieldsGrid.ActualHeight + MinEditorHeight;
+
             FillInCodeViewer();
         }
         private void FillInCodeViewer(bool overrideFirst = false)

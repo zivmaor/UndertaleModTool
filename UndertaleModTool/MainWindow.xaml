@@ -575,6 +575,8 @@
                             </local:ButtonDark>
                         </StackPanel>
                     </Grid>
+                    <!-- Hack. Used to get the size of the space DataEditor occupies. -->
+                    <FrameworkElement Visibility="Hidden" Grid.Row="1" Margin="10" Name="DataEditorSize"/>
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
                         <ContentControl Margin="10" Content="{Binding Selected, Mode=OneWay}" Name="DataEditor">
                             <ContentControl.Resources>
